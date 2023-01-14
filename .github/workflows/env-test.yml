@@ -18,3 +18,11 @@ jobs:
       - run: npm ci
       - run: npm start
 
+      - name: Sending a POST Request to API
+        uses: fjogeleit/http-request-action@v1
+        id: myRequest
+        with:
+          url: "https://ossapi.vercel.app/api/devtip"
+          method: "POST"
+          customHeaders: '{"Content-Type": "application/json"}'
+          data: '{"message": "test message"}'
