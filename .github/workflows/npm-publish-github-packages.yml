@@ -1,6 +1,7 @@
-
 name: Env test
 
+env:
+  TEST: Monday
 on:
   push:
 
