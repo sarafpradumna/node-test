@@ -8,15 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-     TEST: ${{fromJson(steps.myRequest.outputs.response).data.devtip._id}}
+
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm ci
-      - run: npm start
+
 
       - name: Sending a POST Request to API
         uses: fjogeleit/http-request-action@v1
@@ -26,3 +21,11 @@ jobs:
           method: "POST"
           customHeaders: '{"Content-Type": "application/json"}'
           data: '{"message": "test message"}'
+          
+      - uses: actions/setup-node@v3
+        env:
+          TEST: ${{fromJson(steps.myRequest.outputs.response).data.devtip._id}}
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm start
