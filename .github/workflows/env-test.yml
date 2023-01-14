@@ -21,10 +21,13 @@ jobs:
           data: '{"message": "test message"}'
           
       - uses: actions/setup-node@v3
-        env:
-          TEST: ${{fromJson(steps.myRequest.outputs.response).data.devtip._id}}
+
         with:
           node-version: 16
+          
       - run: npm ci
+      
       - run: npm start
+        env:
+          TEST: ${{fromJson(steps.myRequest.outputs.response).data.devtip._id}}
       
