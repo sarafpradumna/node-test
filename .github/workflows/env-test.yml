@@ -8,26 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-
-      - name: Sending a POST Request to API
-        uses: fjogeleit/http-request-action@v1
-        id: myRequest
-        with:
-          url: "https://ossapi.vercel.app/api/devtip"
-          method: "POST"
-          customHeaders: '{"Content-Type": "application/json"}'
-          data: '{"message": "test message"}'
-          
+      - uses: actions/checkout@v3         
       - uses: actions/setup-node@v3
-
         with:
           node-version: 16
           
       - run: npm ci
-      
-      - run: npm start
-        env:
-          TEST: ${{fromJson(steps.myRequest.outputs.response).data.devtip._id}}
-      
